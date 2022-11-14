@@ -4,3 +4,4 @@ from django.db import models
 
 class Resimler(models.Model):
     image = models.ImageField(upload_to="uploads")
+

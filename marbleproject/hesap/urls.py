@@ -3,6 +3,6 @@ from . import views
 
 urlpatterns = [
     path("", views.giris, name="giris"),
-    path("kayit", views.kayit, name="kayit"),
-    path("cikis", views.cikis, name="cikis"),
+    path("kayit_ol", views.kayit, name="kayitlar"),
+    path("cikis_yap", views.cikis, name="cikislar")
 ]
