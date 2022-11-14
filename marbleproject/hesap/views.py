@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http.response import HttpResponse
 
 # Create your views here.
@@ -10,4 +10,4 @@ def kayit(request):
     return render(request, "hesap/kayit.html")
 
 def cikis(request):
-    return HttpResponse("çıkış yap")
+    return redirect("giris.html")
