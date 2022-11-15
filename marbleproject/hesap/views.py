@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http.response import HttpResponse
 from django.contrib.auth import authenticate,login
+from django.contrib.auth.models import User
 # Create your views here.
 
 def giris(request):
@@ -20,7 +21,31 @@ def giris(request):
     return render(request, "hesap/giris.html")
 
 def kayit(request):
+    if request.method == "POST":
+        username = request.POST["username"]
+        email = request.POST["email"]
+        firstname = request.POST["firstname"]
+        lastname = request.POST["lastname"]
+        password = request.POST["password"]
+        repassword = request.POST["repassword"]
+
+        if password == repassword:
+            if User.objects.filter(username = username).exists():
+                return render(request, "hesap/kayit.html", {"error" : "Bu kullanıcı adı kullanılmaktadır", "email" : email, "username" : username, "firstname" : firstname, "lastname" : lastname})
+            
+            else:
+                if User.objects.filter(email = email).exists():
+                    return render(request, "hesap/kayit.html", {"error" : "Bu email kullanılmaktadır.", "username" : username, "email" : email, "firstname" : firstname, "lastname" : lastname})
+
+                else:
+                    user = User.objects.create_user(username=username, password=password, email=email, first_name=firstname, last_name=lastname)
+                    user.save()
+                    return redirect("giris")
+
+        else:
+            return render(request, "hesap/kayit.html", {"error" : "Şifreler Eşleşmiyor", "username" : username, "email" : email, "firstname" : firstname, "lastname" : lastname})
+
     return render(request, "hesap/kayit.html")
 
 def cikis(request):
-    return redirect("giris.html")
+    return redirect("giris")

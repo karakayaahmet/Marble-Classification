@@ -20,19 +20,19 @@
                 <form>
                   {% csrf_token %}
                     <div class="form-group">
-                      <input type="email" class="form-control" placeholder="Email" name="email">
+                      <input type="email" class="form-control" placeholder="Email" name="email" value="{{ email }}">
                     </div>
 
                     <div class="form-group">
-                      <input type="text" class="form-control" placeholder="Kullanıcı Adı" name="username">
+                      <input type="text" class="form-control" placeholder="Kullanıcı Adı" name="username" value="{{ username }}">
                     </div>
 
                     <div class="form-group">
-                      <input type="text" class="form-control" placeholder="Ad" name="firstname">
+                      <input type="text" class="form-control" placeholder="Ad" name="firstname" value="{{ firstname }}">
                     </div>
 
                     <div class="form-group">
-                      <input type="text" class="form-control" placeholder="Soyad" name="lastname">
+                      <input type="text" class="form-control" placeholder="Soyad" name="lastname" value="{{ lastname }}">
                     </div>
 
                     <div class="form-group">
