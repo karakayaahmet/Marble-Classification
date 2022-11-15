@@ -9,6 +9,9 @@ def giris(request):
         username = request.POST["username"]
         password = request.POST["password"]
 
+        if username == "" and password == "":
+            return render(request, "hesap/giris.html", {"error" : "Form Boş Bırakılamaz!"})
+
         user = authenticate(request, username=username, password = password)
 
         if user is not None:
@@ -28,6 +31,9 @@ def kayit(request):
         lastname = request.POST["lastname"]
         password = request.POST["password"]
         repassword = request.POST["repassword"]
+
+        if password == "" and repassword == "" and username == "" and email == "" and firstname == "" and lastname == "":
+            return render(request, "hesap/kayit.html", {"error" : "Form Boş Bırakılamaz!"})  
 
         if password == repassword:
             if User.objects.filter(username = username).exists():
