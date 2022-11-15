@@ -1,16 +1,67 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <link rel="stylesheet" href="{% static bootstrap.min.css %}">
-    <title>Document</title>
-</head>
-<body>
-    
-    <script src="{% static bootstrap.min.js %}"></script>
-</body>
+  <head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="{% static 'css/bootstrap.min.css' %}"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <form action="/">
+        <div id="selectedBanner"></div>
+        <div class="form-group">
+          <label for="pwd">Image:</label>
+          <input type="file" class="form-control" name="image" id="img" />
+        </div>
+
+        <button type="submit" class="btn btn-default">Submit</button>
+      </form>
+    </div>
+
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      var selDiv = "";
+      var storedFiles = [];
+      $(document).ready(function () {
+        $("#img").on("change", handleFileSelect);
+        selDiv = $("#selectedBanner");
+      });
+
+      function handleFileSelect(e) {
+        var files = e.target.files;
+        var filesArr = Array.prototype.slice.call(files);
+        filesArr.forEach(function (f) {
+          if (!f.type.match("image.*")) {
+            return;
+          }
+          storedFiles.push(f);
+
+          var reader = new FileReader();
+          reader.onload = function (e) {
+            var html =
+              '<img src="' +
+              e.target.result +
+              "\" data-file='" +
+              f.name +
+              "alt='Category Image' height='224px' width='224px' >";
+            selDiv.html(html);
+          };
+          reader.readAsDataURL(f);
+        });
+      }
+    </script>
+  </body>
 </html>
