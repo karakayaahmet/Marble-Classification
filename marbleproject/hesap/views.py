@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http.response import HttpResponse
-from django.contrib.auth import authenticate,login
+from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.models import User
 # Create your views here.
 
@@ -54,4 +54,5 @@ def kayit(request):
     return render(request, "hesap/kayit.html")
 
 def cikis(request):
+    logout(request)
     return redirect("giris")
